@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
-function compose_email() {
+function compose_email(type='compose', reply_mail=null) {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
   document.querySelector('#view-single-mail').style.display = 'none';
 
-  /* Pre-populate fields for reply mail
+  // Pre-populate fields for reply mail
   if (type === 'reply') {
     document.querySelector('#compose-recipients').value = reply_mail.sender;
     if (reply_mail.subject.slice(0, 3) === 'Re:') {
@@ -31,11 +31,11 @@ function compose_email() {
   }
 
   // Clear out composition fields
-  else {*/
+  else {
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';  
-  
+  }
 
   document.querySelector('#compose-form').addEventListener('submit', function(e) {
     
@@ -44,7 +44,6 @@ function compose_email() {
     
     // Send POST request and show to sent mailbox
     send_mail(e);
-    load_mailbox('sent');
   });
 }
 
@@ -78,7 +77,7 @@ function load_mailbox(mailbox) {
       div.addEventListener('click', () => open_mail(mail))
       div.style.cursor = 'pointer';
       
-      /* Archive button for each mail
+      // Archive button for each mail
       let button = document.createElement('button');
       if (mailbox === 'archive') {
         button.innerHTML = "Unarchive";
@@ -88,16 +87,15 @@ function load_mailbox(mailbox) {
       }
       button.addEventListener('click', () => toggle_archive_mail(mail));
 
-       Reply button for each mail
+      // Reply button for each mail
       let reply_button = document.createElement('button');
       reply_button.innerHTML = "Reply";
       reply_button.addEventListener('click', () => compose_email('reply', mail));
-      */
       
       // Append the div and button to emails-view
       document.querySelector('#emails-view').appendChild(div);
-      // document.querySelector('#emails-view').appendChild(button);
-      //document.querySelector('#emails-view').appendChild(reply_button);
+      document.querySelector('#emails-view').appendChild(button);
+      document.querySelector('#emails-view').appendChild(reply_button);
     })
     console.log("load_function executed")
     console.log(mails);
@@ -191,6 +189,7 @@ function send_mail(e) {
       body: document.querySelector('#compose-body').value
     })
   })
+  .then(() => load_mailbox('sent'));
 
   // To stop event from being called multiple times 
   e.stopImmediatePropagation();
