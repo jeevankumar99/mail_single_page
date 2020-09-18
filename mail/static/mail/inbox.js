@@ -156,10 +156,11 @@ function toggle_read_mail(mail_id) {
       read: true
     })
   })
-  console.log('toggle function running!')
 }
 
 function toggle_archive_mail(response_mail) {
+  
+  // change state to true if false and vice versa
   let state;
   if (response_mail.archived) {
     state = false;
@@ -167,6 +168,8 @@ function toggle_archive_mail(response_mail) {
   else {
     state = true;
   }
+
+  // PUT request to change only one property
   fetch(`emails/${response_mail.id}`, {
     method: 'PUT', 
     body: JSON.stringify({
