@@ -4,4 +4,6 @@ textarea {
 
 .inbox-mail-div {
     padding: 10px;
+    display: flex;
+    flex-direction: row;
 }

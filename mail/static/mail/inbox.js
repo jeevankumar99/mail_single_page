@@ -19,6 +19,7 @@ function compose_email(type='compose', reply_mail=null) {
 
   // Pre-populate fields for reply mail
   if (type === 'reply') {
+    document.querySelector('#heading').innerHTML = "Reply Email";
     document.querySelector('#compose-recipients').value = reply_mail.sender;
     if (reply_mail.subject.slice(0, 3) === 'Re:') {
       document.querySelector('#compose-subject').value = `${reply_mail.subject}`;
@@ -32,6 +33,7 @@ function compose_email(type='compose', reply_mail=null) {
 
   // Clear out composition fields
   else {
+    document.querySelector('#heading').innerHTML = "New Email";
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';  
@@ -77,25 +79,35 @@ function load_mailbox(mailbox) {
       div.addEventListener('click', () => open_mail(mail))
       div.style.cursor = 'pointer';
       
-      // Archive button for each mail
-      let button = document.createElement('button');
-      if (mailbox === 'archive') {
-        button.innerHTML = "Unarchive";
-      }
-      else{
-        button.innerHTML = "Archive";
-      }
-      button.addEventListener('click', () => toggle_archive_mail(mail));
+       // Reply button for each mail
+       let reply_button = document.createElement('button');
+       reply_button.innerHTML = "Reply";
+       reply_button.addEventListener('click', (e) => {
+        e.stopPropagation(); 
+        compose_email('reply', mail);
+        toggle_read_mail(mail.id);
+       });
+       
+       // Append the div and button to emails-view
+       document.querySelector('#emails-view').appendChild(div);
+       div.appendChild(reply_button);
 
-      // Reply button for each mail
-      let reply_button = document.createElement('button');
-      reply_button.innerHTML = "Reply";
-      reply_button.addEventListener('click', () => compose_email('reply', mail));
-      
-      // Append the div and button to emails-view
-      document.querySelector('#emails-view').appendChild(div);
-      document.querySelector('#emails-view').appendChild(button);
-      document.querySelector('#emails-view').appendChild(reply_button);
+      // Archive button for each mail
+      if (mailbox !== 'sent') {
+        let archive_button = document.createElement('button');
+        if (mailbox === 'archive') {
+          archive_button.innerHTML = "Unarchive";
+        }
+        else{
+          archive_button.innerHTML = "Archive";
+        }
+        archive_button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggle_archive_mail(mail)
+        });
+        div.append(archive_button);
+      }
+
     })
     console.log("load_function executed")
     console.log(mails);
@@ -133,7 +145,7 @@ function open_mail(mail) {
     else {
       archive_button.innerHTML = "Archive";
     }
-    archive_button.addEventListener('click', () => toggle_archive_mail(response_mail));
+    archive_button.addEventListener('click', (e) => toggle_archive_mail(e, response_mail));
 
     // Append all parts of mail to one div
     let view_mail_div = document.querySelector('#view-single-mail');
@@ -192,5 +204,6 @@ function send_mail(e) {
   .then(() => load_mailbox('sent'));
 
   // To stop event from being called multiple times 
+  e.stopPropagation();
   e.stopImmediatePropagation();
 }
