@@ -53,11 +53,15 @@ function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
+  document.querySelector('#box-heading').style.display = 'block';
   document.querySelector('#view-single-mail').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#box-heading').innerHTML = `<h1>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h1>`;
+
+  // Empty the inbox div
+  document.querySelector('#emails-view').textContent = '';
 
   // Populate inbox
   fetch(`emails/${mailbox}`)
@@ -67,12 +71,12 @@ function load_mailbox(mailbox) {
       
       // Div for each mail.
       let div = document.createElement('div');
-      div.innerHTML = `${mail.sender}  ${mail.subject}    ${mail.timestamp}`;
+      div.innerHTML = `${mail.sender}  <strong>${mail.subject}</strong>  ${mail.body}  ${mail.timestamp}`;
       div.classList.add('inbox-mail-div');
       
       // If the mail is read, let it appear in gray background
       if (mail.read) {
-        div.style.backgroundColor = 'gray';
+        div.style.backgroundColor = 'rgb(37, 37, 37)';
       }
       
       // Make the entire div clickable
