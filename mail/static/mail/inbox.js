@@ -57,15 +57,18 @@ function load_mailbox(mailbox) {
   document.querySelector('#view-single-mail').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
+  // Empty inbox and box heading div
+  document.querySelector('#box-heading').textContent = '';
+  document.querySelector('#emails-view').textContent = '';
+
+
   // Show the mailbox name
   let heading = document.createElement('div');
   heading.id = 'box-title';
   heading.innerHTML = `<h1>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h1>`;
   heading.style.display = 'table-cell';
   document.querySelector('#box-heading').appendChild(heading);
-  // Empty the inbox div
-  document.querySelector('#emails-view').textContent = '';
-
+  
   // Populate inbox
   fetch(`emails/${mailbox}`)
   .then(response => response.json())

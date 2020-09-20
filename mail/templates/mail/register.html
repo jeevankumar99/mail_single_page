@@ -1,27 +1,30 @@
 {% extends "mail/layout.html" %}
 
 {% block body %}
+    <div id="register-form">
+        <div>
+            <h1 style="margin-top: 40px;">Register</h1>
+        <div>
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
 
-    <h2>Register</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <input id="login-register-email" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div>
+                <input id="login-register-password" type="password" name="password" placeholder="Password">
+            </div>
+            <div>
+                <input id="login-register-password" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <input id="login-register-button" type="submit" value="Register">
+        </form>
+        <div style="margin-top: 40px">
+            Already have an account? <a href="{% url 'login' %}">Log In here.</a>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    </div>
 
 {% endblock %}
