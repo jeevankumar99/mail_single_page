@@ -3,8 +3,6 @@
 
 {% block body %}
     <div id="side-panel">
-        <h1 style="color: white;">Mail</h1>
-        <h2>{{ request.user.email }}</h2>
 
         <button class="navigation-buttons" id="inbox">Inbox</button>
         <button class="navigation-buttons" id="compose">Compose</button>
@@ -13,7 +11,11 @@
         <a class="navigation-buttons" href="{% url 'logout' %}">Log Out</a>
         <hr>
     </div>
-    <div id="box-heading"></div>
+    <div id="box-heading">
+        <div id="user-info">
+            <h3>{{ request.user.email }}</h3>
+        </div>
+    </div>
     <div id="outer-mails-div">
     <div id="emails-view">
     </div>
