@@ -3,13 +3,17 @@
 
 {% block body %}
     <div id="side-panel">
-
+    <h1>Mail</h1>
+        <hr>
+        <div class="navigation-buttons" id="compose">
+            <img id="compose-icon" src="{% static 'mail/compose_icon.jpg' %}" alt=".">
+            <div id="compose-text">Compose</div>
+        </div>
         <button class="navigation-buttons" id="inbox">Inbox</button>
-        <button class="navigation-buttons" id="compose">Compose</button>
         <button class="navigation-buttons" id="sent">Sent</button>
         <button class="navigation-buttons" id="archived">Archived</button>
         <a class="navigation-buttons" href="{% url 'logout' %}">Log Out</a>
-        <hr>
+
     </div>
     <div id="box-heading">
         <div id="user-info">
