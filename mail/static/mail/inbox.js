@@ -65,9 +65,31 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   let heading = document.createElement('div');
   heading.id = 'box-title';
+  
+  let username_div = document.createElement('div');
+  username_div.id = 'user-info';
+  
+  let user_image = document.createElement('img');
+  user_image.src = 'https://lh3.googleusercontent.com/proxy/8OvXBaa2agYnl3r-CpUEn59vwi4YAETL7swCz3YXsTFLCgVISRt-Y5V66GRTkCVM6-Hnd6AI-5SaLITBtXv9g1bSTnqIkSjNnPzkSQGEg1UI1Ed5tg9l';
+  user_image.alt = "profile-icon";
+  user_image.id = 'profile-icon';
   heading.innerHTML = `<h1>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h1>`;
+  username_div.appendChild(user_image);
+  
+  let current_user = document.createElement('div')
+  current_user.id = 'current-user'
+  current_user.innerHTML = document.querySelector('#username').innerHTML;
+  username_div.appendChild(current_user);
   heading.style.display = 'table-cell';
+  
+  let logout_button = document.createElement('a');
+  logout_button.id = 'logout-button';
+  logout_button.href = '/logout';
+  logout_button.innerHTML = "Log Out";
+  current_user.appendChild(logout_button);
+  
   document.querySelector('#box-heading').appendChild(heading);
+  document.querySelector('#box-heading').appendChild(username_div);
   
   // Populate inbox
   fetch(`emails/${mailbox}`)
@@ -77,7 +99,6 @@ function load_mailbox(mailbox) {
       
       // Div for each mail.
       let div = document.createElement('div');
-      let outer_div = document.createElement('div');
       let sender_div = document.createElement('div');
       let subject_div = document.createElement('div');
       let timestamp_div = document.createElement('div');
@@ -173,15 +194,19 @@ function open_mail(mail) {
     console.log(response_mail);
 
     // Adding the parts of the email
-    let title_div = document.createElement('div');
+    let subject_div = document.createElement('div');
+    subject_div.id = 'mail-subject-div';
     let body_div = document.createElement('div');
+    body_div.id = 'mail-body-div';
     let info_div = document.createElement('div');
-    title_div.innerHTML = `<h2>${response_mail.subject}</h2>`
-    info_div.innerHTML = `<p>From: ${response_mail.sender}<br>To: ${response_mail.recipients}</p>`;
+    info_div.id = 'mail-info-div';
+    subject_div.innerHTML = `<h2>${response_mail.subject}</h2>`
+    info_div.innerHTML = `<h4>From: ${response_mail.sender}</h4><h4>To: ${response_mail.recipients}</h4><h4>${response_mail.timestamp}</h4>`;
     body_div.innerHTML = response_mail.body;
     
     // Adding the archive button 
     let archive_button = document.createElement('button');
+    archive_button.id = 'mail-archive-button'
     if (response_mail.archived) {
       archive_button.innerHTML = "Unarchive"
     }
@@ -190,12 +215,18 @@ function open_mail(mail) {
     }
     archive_button.addEventListener('click', (e) => toggle_archive_mail(e, response_mail));
 
+    /* Adding the reply button
+    if (mail.sender === request)
+    let reply_button = document.createElement('button');
+    reply_button.id = 'mail-reply-button';
+    */
+
     // Append all parts of mail to one div
     let view_mail_div = document.querySelector('#view-single-mail');
-    view_mail_div.appendChild(title_div);
+    view_mail_div.appendChild(subject_div);
     view_mail_div.appendChild(info_div);
-    view_mail_div.appendChild(archive_button);
     view_mail_div.appendChild(body_div);
+    view_mail_div.appendChild(archive_button);
 
     // To change read to true after user opens the mail
     toggle_read_mail(response_mail.id);

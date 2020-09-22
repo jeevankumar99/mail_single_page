@@ -2,23 +2,31 @@
 {% load static %}
 
 {% block body %}
+    <p style="display: none" id="username">{{ request.user.email }}</p>
     <div id="side-panel">
-    <h1>Mail</h1>
+        <div id="mail-title">
+            <h1>Mail</h1>
+        </div>
         <hr>
         <div class="navigation-buttons" id="compose">
             <img id="compose-icon" src="{% static 'mail/compose_icon.jpg' %}" alt=".">
             <div id="compose-text">Compose</div>
         </div>
-        <button class="navigation-buttons" id="inbox">Inbox</button>
-        <button class="navigation-buttons" id="sent">Sent</button>
-        <button class="navigation-buttons" id="archived">Archived</button>
-        <a class="navigation-buttons" href="{% url 'logout' %}">Log Out</a>
+        <button class="side-buttons" id="inbox">Inbox</button>
+        <button class="side-buttons" id="sent">Sent</button>
+        <button class="side-buttons" id="archived">Archived</button>
+        <hr>
+        <div>
+            <p>Signed in as </p>
+            <div>
+                <img id="user-profile-icon" src="{% static 'mail/profile-icon.png' %}" alt="profile-icon"> 
+                {{ request.user.email }}
+            </div>
+        </div>
 
     </div>
     <div id="box-heading">
-        <div id="user-info">
-            <h3>{{ request.user.email }}</h3>
-        </div>
+
     </div>
     <div id="outer-mails-div">
     <div id="emails-view">
