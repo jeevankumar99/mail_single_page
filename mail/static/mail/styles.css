@@ -28,7 +28,6 @@ h1 {
 }
 
 strong {
-    margin-left: 70px;
 }
 
 
@@ -106,14 +105,14 @@ strong {
 }
 
 #logout-button {
-    float: right;
-    clear: right;
-    margin-top: 10px;
     background-color: white;
-    color: black;
+    margin-left: 35px;
+    color: red;
     height: 20px;
-    width: 40%;
+    width: 150px;
+    font-weight: bold;
     text-align: center;
+    margin-bottom: 30px;
     padding: 2px;
     border-radius: 10px;
     border: 0px;
@@ -304,8 +303,17 @@ strong {
     margin-left: auto;
 }
 #user-info {
-    margin-top: 10px;
-    float: right;
+    padding: 15px;
+    padding-top: 10px;
+    color: white;
+}
+
+#username-image {
+    margin-bottom: 40px;
+}
+
+#username-domain {
+    margin-left: 60px;
 }
 
 

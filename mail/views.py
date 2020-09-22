@@ -14,7 +14,13 @@ def index(request):
 
     # Authenticated users view their inbox
     if request.user.is_authenticated:
-        return render(request, "mail/inbox.html")
+        user = str(request.user)
+        username, domain = user.split('@')
+        domain_name = '@' + domain
+        return render(request, "mail/inbox.html", {
+            'username': username,
+            'domain': domain_name,
+        })
 
     # Everyone else is prompted to sign in
     else:

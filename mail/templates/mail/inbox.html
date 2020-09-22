@@ -16,14 +16,16 @@
         <button class="side-buttons" id="sent">Sent</button>
         <button class="side-buttons" id="archived">Archived</button>
         <hr>
-        <div>
-            <p>Signed in as </p>
-            <div>
+        <div id="user-info">
+            <p style="color: white">Signed in as </p>
                 <img id="user-profile-icon" src="{% static 'mail/profile-icon.png' %}" alt="profile-icon"> 
-                {{ request.user.email }}
-            </div>
+                <p id='username-domain'>
+                    <strong style="font-size: 20px;">{{ username }}</strong><br>
+                    <span style="color: rgb(184, 184, 184)">{{ domain }}</span>
+                </p>
         </div>
-
+        <a id="logout-button" href="{% url 'logout' %}">Log Out</a>
+        <hr>
     </div>
     <div id="box-heading">
 

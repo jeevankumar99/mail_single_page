@@ -65,31 +65,9 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   let heading = document.createElement('div');
   heading.id = 'box-title';
-  
-  let username_div = document.createElement('div');
-  username_div.id = 'user-info';
-  
-  let user_image = document.createElement('img');
-  user_image.src = 'https://lh3.googleusercontent.com/proxy/8OvXBaa2agYnl3r-CpUEn59vwi4YAETL7swCz3YXsTFLCgVISRt-Y5V66GRTkCVM6-Hnd6AI-5SaLITBtXv9g1bSTnqIkSjNnPzkSQGEg1UI1Ed5tg9l';
-  user_image.alt = "profile-icon";
-  user_image.id = 'profile-icon';
-  heading.innerHTML = `<h1>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h1>`;
-  username_div.appendChild(user_image);
-  
-  let current_user = document.createElement('div')
-  current_user.id = 'current-user'
-  current_user.innerHTML = document.querySelector('#username').innerHTML;
-  username_div.appendChild(current_user);
-  heading.style.display = 'table-cell';
-  
-  let logout_button = document.createElement('a');
-  logout_button.id = 'logout-button';
-  logout_button.href = '/logout';
-  logout_button.innerHTML = "Log Out";
-  current_user.appendChild(logout_button);
-  
+  heading.innerHTML = `<h1>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h1>`;  
   document.querySelector('#box-heading').appendChild(heading);
-  document.querySelector('#box-heading').appendChild(username_div);
+  
   
   // Populate inbox
   fetch(`emails/${mailbox}`)
