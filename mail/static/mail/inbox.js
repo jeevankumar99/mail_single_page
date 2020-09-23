@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Use buttons to toggle between views
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
-  document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
+  document.querySelector('#archive').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
 
   // By default, load the inbox
@@ -15,7 +15,14 @@ function compose_email(type='compose', reply_mail=null) {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#box-heading').textContent = '';
   document.querySelector('#view-single-mail').style.display = 'none';
+
+  // Change title to compose
+  let compose_heading = document.createElement('div');
+  compose_heading.id = 'box-title';
+  compose_heading.innerHTML = "<h1>Compose Email</h1>";
+  document.querySelector('#box-heading').appendChild(compose_heading)
 
   // Pre-populate fields for reply mail
   if (type === 'reply') {
@@ -61,6 +68,15 @@ function load_mailbox(mailbox) {
   document.querySelector('#box-heading').textContent = '';
   document.querySelector('#emails-view').textContent = '';
 
+  // Change side panel style based on mailbox
+  let normal_gray = 'rgb(71, 71, 71)';
+  let highlight_gray = 'rgb(173, 173, 173)';
+  let inboxButton = document.querySelector('#inbox');
+  let sentButton = document.querySelector('#sent');
+  let archiveButton = document.querySelector('#archive');
+  let inboxDiv = document.querySelector('#side-inbox-div');
+  let sentDiv = document.querySelector('#side-sent-div');
+  let archiveDiv = document.querySelector('#side-archive-div');
 
   // Show the mailbox name
   let heading = document.createElement('div');

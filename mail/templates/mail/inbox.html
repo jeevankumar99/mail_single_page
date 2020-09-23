@@ -12,9 +12,15 @@
             <img id="compose-icon" src="{% static 'mail/compose_icon.jpg' %}" alt=".">
             <div id="compose-text">Compose</div>
         </div>
-        <button class="side-buttons" id="inbox">Inbox</button>
-        <button class="side-buttons" id="sent">Sent</button>
-        <button class="side-buttons" id="archived">Archived</button>
+        <div id="side-inbox-div">
+            <button id="inbox">Inbox</button>
+        </div>
+        <div id="side-sent-div">
+            <button id="sent">Sent</button>
+        </div>
+        <div id="side-archive-div">
+            <button id="archive">Archived</button>
+        </div>
         <hr>
         <div id="user-info">
             <p style="color: white">Signed in as </p>
@@ -39,19 +45,20 @@
     </div>
 
     <div id="compose-view">
-        <h3 id="heading">New Email</h3>
         <form id="compose-form">
-            <div class="form-group">
-                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            <div id="from-field-div">
+                From: <input disabled class="from-field" value="{{ request.user.email }}">
             </div>
-            <div class="form-group">
-                To: <input id="compose-recipients" class="form-control">
+            <div id="to-field-div">
+                To: <input id="compose-recipients" class="to-field">
             </div>
-            <div class="form-group">
-                <input class="form-control" id="compose-subject" placeholder="Subject">
+            <div id="subject-field-div">
+                <input class="subject-field" id="compose-subject" placeholder="Subject">
             </div>
-            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-            <input type="submit" class="btn btn-primary"/>
+            <div id="body-field-div">
+                <textarea class="body-field" id="compose-body" placeholder="Body"></textarea>
+            </div>
+            <input id="compose-submit-button" type="submit" value="Send" class="compose-"/>
         </form>
     </div>
 {% endblock %}
