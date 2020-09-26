@@ -121,9 +121,14 @@ function load_mailbox(mailbox) {
       // Make the entire div clickable
       div.addEventListener('click', () => open_mail(mail))
       div.style.cursor = 'pointer';
+
+      div.appendChild(sender_div);
+      div.appendChild(subject_div);
+      div.appendChild(timestamp_div);
       
        // Reply button for each mail
        let reply_button = document.createElement('button');
+       reply_button.id = 
        reply_button.style.display = 'none';
        reply_button.innerHTML = "Reply";
        reply_button.classList.add('reply_button');
@@ -135,10 +140,12 @@ function load_mailbox(mailbox) {
 
        // Make reply button appear and disappear
        div.addEventListener('mouseover', () => {
-         reply_button.style.display = 'block';
+         reply_button.style.display = 'flex';
+          timestamp_div.style.display = 'none';
        })
        div.addEventListener('mouseout', () => {
          reply_button.style.display = 'none';
+         timestamp_div.style.display = 'block';
        })
        
        // Append the div and button to emails-view
@@ -164,16 +171,13 @@ function load_mailbox(mailbox) {
         
         // Make archive button appear and disappear
         div.addEventListener('mouseover', () => {
-          archive_button.style.display = 'block';
+          archive_button.style.display = 'flex';
           subject_div.style.marginLeft = '10px;'
         })
         div.addEventListener('mouseout', () => {
           archive_button.style.display = 'none';
         })
       }
-      div.appendChild(sender_div);
-      div.appendChild(subject_div);
-      div.appendChild(timestamp_div);
     })
     console.log("load_function executed")
     console.log(mails);

@@ -138,9 +138,34 @@ strong {
     color: white;
 }
 
+
 .reply_button, .archive_button {
-    float: left;
+    margin-left: 10px;
+    border: 0px;
+    border-radius: 5px;
+    height: 18px;
 }
+
+.reply_button {
+    margin-left: auto;
+}
+
+.reply_button:hover, .archive_button:hover {
+    cursor: pointer;
+}
+
+.reply_button:hover {
+    color: green;
+    border: 1px solid green;
+}
+
+.archive_button:hover {
+    color: rgb(156, 90, 4);
+    border: 1px solid rgb(255, 187, 0);
+}
+
+
+
 
 
 .navigation-buttons {
@@ -255,7 +280,7 @@ strong {
 
 .inbox-mail-div {
     color: white;
-    padding: 15px;
+    padding: 14px;
     display: flex;
     flex-direction: row;
     float: right;
@@ -359,6 +384,16 @@ strong {
 
 .sender-div {
     width: 200px;
+
+}
+
+@keyframes slide {
+    from {
+        margin-left: 0px;
+    }
+    to {
+        margin-left: 100px;
+    }
 }
 
 
@@ -379,6 +414,7 @@ strong {
     margin-left: 50px;
     width: 500px;
 }
+
 
 .timestamp-div {
     margin-left: auto;
