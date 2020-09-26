@@ -71,12 +71,20 @@ function load_mailbox(mailbox) {
   // Change side panel style based on mailbox
   let normal_gray = 'rgb(71, 71, 71)';
   let highlight_gray = 'rgb(173, 173, 173)';
-  let inboxButton = document.querySelector('#inbox');
-  let sentButton = document.querySelector('#sent');
-  let archiveButton = document.querySelector('#archive');
-  let inboxDiv = document.querySelector('#side-inbox-div');
-  let sentDiv = document.querySelector('#side-sent-div');
-  let archiveDiv = document.querySelector('#side-archive-div');
+  let mailboxes = ['inbox', 'sent', 'archive'];
+
+  document.querySelector(`#${mailbox}`).style.backgroundColor = highlight_gray;
+  document.querySelector(`#${mailbox}`).style.color = 'black';
+  document.querySelector(`#side-${mailbox}-div`).style.backgroundColor = highlight_gray;
+
+  mailboxes.forEach((mail_box) => {
+    if (mailbox !== mail_box) {
+      console.log(mail_box)
+      document.querySelector(`#${mail_box}`).style.backgroundColor = null;
+      document.querySelector(`#${mail_box}`).style.color = null;
+      document.querySelector(`#side-${mail_box}-div`).style.backgroundColor = null;
+    }
+  })
 
   // Show the mailbox name
   let heading = document.createElement('div');
