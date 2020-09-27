@@ -27,10 +27,6 @@ h1 {
     color: white;
 }
 
-strong {
-}
-
-
 #compose-icon {
     width: 40px;
     height: 40px;
@@ -98,6 +94,10 @@ strong {
     margin-right: 10px;
 }
 
+#side-archive-div {
+    margin-bottom: 18px;
+}
+
 #side-inbox-div:hover, #side-sent-div:hover, #side-archive-div:hover {
     background-color: rgb(121, 121, 121);
 }
@@ -141,9 +141,13 @@ strong {
 
 .reply_button, .archive_button {
     margin-left: 10px;
-    border: 0px;
-    border-radius: 5px;
-    height: 18px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+    font-size: medium;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 24px;
 }
 
 .reply_button {
@@ -250,6 +254,11 @@ strong {
     color: white
 }
 
+#compose-submit-button:focus {
+    outline: none;
+    border: 0px;
+}
+
 #compose-view {
     margin-top: 20px;
     color: rgb(196, 196, 196);
@@ -280,17 +289,34 @@ strong {
 
 .inbox-mail-div {
     color: white;
-    padding: 14px;
     display: flex;
     flex-direction: row;
-    float: right;
+    padding-right: 8px;
     width: 98%;
     background-color: rgb(71, 71, 71);
     border-bottom: 0.5px solid rgb(55, 55, 55);
     border-top: 0.5px solid rgb(55, 55, 55);
 }
 
-.inbox-mail-div:hover {
+
+.sender-div, .subject-div, .timestamp-div, .mail-body-div {
+    margin-top: 7.5px;
+    margin-bottom: 7.5px;
+    overflow: hidden;
+    height: 20px;
+}
+
+.sender-div {
+    font-weight: bold;
+}
+
+
+
+.mail-body-div {
+    margin-left: 20px;
+    color: rgb(214, 214, 214);
+    overflow: hidden;
+    width: 45%;
     height: 20px;
 }
 
@@ -376,14 +402,13 @@ strong {
 }
 
 #outer-mails-div {
-    background-color: rgb(71, 71, 71);
-    margin-left: 280px;
+    margin-left: 290px;
     margin-right: 25px;
-    box-shadow: 3px 3px 10px black;
 }
 
 .sender-div {
     width: 200px;
+    margin-left: 8px;
 
 }
 
@@ -410,9 +435,15 @@ strong {
     background-color: rgb(71, 71, 71);
 }
 
+
 .subject-div {
     margin-left: 50px;
-    width: 500px;
+    white-space: nowrap;
+    max-width: 500px;
+    height: 20px;
+    overflow: hidden;
+    font-weight: bold;
+    text-overflow: ellipsis;
 }
 
 

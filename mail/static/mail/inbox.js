@@ -21,12 +21,10 @@ function compose_email(type='compose', reply_mail=null) {
   // Change title to compose
   let compose_heading = document.createElement('div');
   compose_heading.id = 'box-title';
-  compose_heading.innerHTML = "<h1>Compose Email</h1>";
-  document.querySelector('#box-heading').appendChild(compose_heading)
 
   // Pre-populate fields for reply mail
   if (type === 'reply') {
-    document.querySelector('#heading').innerHTML = "Reply Email";
+    compose_heading.innerHTML = "<h1>Reply Email</h1>";
     document.querySelector('#compose-recipients').value = reply_mail.sender;
     if (reply_mail.subject.slice(0, 3) === 'Re:') {
       document.querySelector('#compose-subject').value = `${reply_mail.subject}`;
@@ -40,11 +38,12 @@ function compose_email(type='compose', reply_mail=null) {
 
   // Clear out composition fields
   else {
-    document.querySelector('#heading').innerHTML = "New Email";
+    compose_heading.innerHTML = "<h1>Compose Email</h1>";
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';  
   }
+  document.querySelector('#box-heading').appendChild(compose_heading)
 
   document.querySelector('#compose-form').addEventListener('submit', function(e) {
     
@@ -103,12 +102,15 @@ function load_mailbox(mailbox) {
       let div = document.createElement('div');
       let sender_div = document.createElement('div');
       let subject_div = document.createElement('div');
+      let body_div = document.createElement('div');
       let timestamp_div = document.createElement('div');
       
       sender_div.innerHTML = mail.sender;
       sender_div.classList.add('sender-div');
       subject_div.innerHTML = mail.subject;
       subject_div.classList.add('subject-div');
+      body_div.innerHTML = String(`- ${mail.body}`);
+      body_div.classList.add('mail-body-div');
       timestamp_div.innerHTML = mail.timestamp;
       timestamp_div.classList.add('timestamp-div');
       div.classList.add('inbox-mail-div');
@@ -124,6 +126,7 @@ function load_mailbox(mailbox) {
 
       div.appendChild(sender_div);
       div.appendChild(subject_div);
+      div.appendChild(body_div);
       div.appendChild(timestamp_div);
       
        // Reply button for each mail
