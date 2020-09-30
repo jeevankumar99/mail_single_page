@@ -5,6 +5,9 @@
     <p style="display: none" id="username">{{ request.user.email }}</p>
     <div id="side-panel">
         <div id="mail-title">
+            <div style="float: left; margin: 22px 10px 10px 0px;">
+                <img id="mail-icon" src="{% static 'mail/mail_icon.png'%}" alt=".">
+            </div>
             <h1>Mail</h1>
         </div>
         <hr>
@@ -13,12 +16,21 @@
             <div id="compose-text">Compose</div>
         </div>
         <div id="side-inbox-div">
+            <div class="sidebar-icons-div">
+                <img id="inbox-icon" src="{% static 'mail/inbox_icon.png' %}" alt="."/>
+            </div>
             <button id="inbox">Inbox</button>
         </div>
         <div id="side-sent-div">
+            <div class="sidebar-icons-div">
+                <img id="sent-icon" src="{% static 'mail/archive_icon.png' %}" alt="."/>
+            </div>
             <button id="sent">Sent</button>
         </div>
         <div id="side-archive-div">
+            <div class="sidebar-icons-div">
+                <img id="archive-icon" src="{% static 'mail/archive_icon.png' %}" alt="."/>
+            </div>
             <button id="archive">Archived</button>
         </div>
         <hr>

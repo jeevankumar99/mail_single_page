@@ -75,6 +75,7 @@ function load_mailbox(mailbox) {
   document.querySelector(`#${mailbox}`).style.backgroundColor = highlight_gray;
   document.querySelector(`#${mailbox}`).style.color = 'black';
   document.querySelector(`#side-${mailbox}-div`).style.backgroundColor = highlight_gray;
+  document.querySelector(`#${mailbox}-icon`).style.filter = 'brightness(0.10)';
 
   mailboxes.forEach((mail_box) => {
     if (mailbox !== mail_box) {
@@ -82,6 +83,7 @@ function load_mailbox(mailbox) {
       document.querySelector(`#${mail_box}`).style.backgroundColor = null;
       document.querySelector(`#${mail_box}`).style.color = null;
       document.querySelector(`#side-${mail_box}-div`).style.backgroundColor = null;
+      document.querySelector(`#${mail_box}-icon`).style.filter = null;
     }
   })
 
@@ -128,58 +130,61 @@ function load_mailbox(mailbox) {
       div.appendChild(subject_div);
       div.appendChild(body_div);
       div.appendChild(timestamp_div);
-      
-       // Reply button for each mail
-       let reply_button = document.createElement('button');
-       reply_button.id = 
-       reply_button.style.display = 'none';
-       reply_button.innerHTML = "Reply";
-       reply_button.classList.add('reply_button');
-       reply_button.addEventListener('click', (e) => {
-        e.stopPropagation(); 
-        compose_email('reply', mail);
-        toggle_read_mail(mail.id);
-       });
 
-       // Make reply button appear and disappear
-       div.addEventListener('mouseover', () => {
-         reply_button.style.display = 'flex';
-          timestamp_div.style.display = 'none';
-       })
-       div.addEventListener('mouseout', () => {
-         reply_button.style.display = 'none';
-         timestamp_div.style.display = 'block';
-       })
-       
-       // Append the div and button to emails-view
-       div.appendChild(reply_button);
-       document.querySelector('#emails-view').appendChild(div);
+      // Append the div the emails view
+      document.querySelector('#emails-view').appendChild(div);
+
 
       // Archive button for each mail
-      if (mailbox !== 'sent') {
-        let archive_button = document.createElement('button');
-        archive_button.classList.add('archive_button');
-        if (mailbox === 'archive') {
-          archive_button.innerHTML = "Unarchive";
-        }
-        else{
-          archive_button.innerHTML = "Archive";
-        }
-        archive_button.addEventListener('click', (e) => {
-          e.stopPropagation();
-          toggle_archive_mail(mail)
-        });
+      let archive_button = document.createElement('button');
+      archive_button.classList.add('archive_button');
+      if (mailbox === 'archive') {
+        archive_button.innerHTML = "Unarchive";
+      }
+      else{
+        archive_button.innerHTML = "Archive";
+      }
+      archive_button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggle_archive_mail(mail)
+      });
+      archive_button.style.display = 'none';
+      div.append(archive_button);
+      
+      // Make archive button appear and disappear
+      div.addEventListener('mouseover', () => {
+        archive_button.style.display = 'flex';
+        timestamp_div.style.display = 'none';
+        subject_div.style.marginLeft = '10px;'
+      })
+      div.addEventListener('mouseout', () => {
         archive_button.style.display = 'none';
-        div.append(archive_button);
-        
-        // Make archive button appear and disappear
+        timestamp_div.style.display = 'block';
+      })
+
+      // Reply button for each mail
+      if (mailbox !== 'sent') {
+        let reply_button = document.createElement('button');
+        reply_button.id = 
+        reply_button.style.display = 'none';
+        reply_button.innerHTML = "Reply";
+        reply_button.classList.add('reply_button');
+        reply_button.addEventListener('click', (e) => {
+          e.stopPropagation(); 
+          compose_email('reply', mail);
+          toggle_read_mail(mail.id);
+        });
+        // Make reply button appear and disappear
         div.addEventListener('mouseover', () => {
-          archive_button.style.display = 'flex';
-          subject_div.style.marginLeft = '10px;'
+          reply_button.style.display = 'flex';
+          timestamp_div.style.display = 'none';
         })
         div.addEventListener('mouseout', () => {
-          archive_button.style.display = 'none';
+          reply_button.style.display = 'none';
+          timestamp_div.style.display = 'block';
         })
+        // Append the button to emails-view
+        div.appendChild(reply_button);
       }
     })
     console.log("load_function executed")

@@ -65,6 +65,7 @@ h1 {
     width: 90%;
     background-color: rgb(71, 71, 71);
     border: 0px;
+    float: right;
     padding: 0px;
     font-size: large;
     height: 30px;
@@ -88,6 +89,7 @@ h1 {
 
 #side-inbox-div, #side-sent-div, #side-archive-div {
     margin-top: 10px;
+    display: flex;
     margin-bottom: 10px;
     border-bottom-right-radius: 12px;
     border-top-right-radius: 12px;
@@ -150,7 +152,7 @@ h1 {
     height: 24px;
 }
 
-.reply_button {
+.archive_button {
     margin-left: auto;
 }
 
@@ -313,11 +315,13 @@ h1 {
 
 
 .mail-body-div {
-    margin-left: 20px;
+    margin-left: 10px;
     color: rgb(214, 214, 214);
     overflow: hidden;
-    width: 45%;
+    max-width: 45%;
     height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #login-form, #register-form {
@@ -407,7 +411,7 @@ h1 {
 }
 
 .sender-div {
-    width: 200px;
+    width: 180px;
     margin-left: 8px;
 
 }
@@ -421,6 +425,20 @@ h1 {
     }
 }
 
+
+#mail-icon {
+    width: 40px;
+}
+
+#inbox-icon, #archive-icon, #sent-icon {
+    width: 25px;
+    margin-left: 20px;
+}
+
+
+.sidebar-icons-div {
+    float: left;
+}
 
 #side-panel {
     margin-right: 20px;
@@ -436,10 +454,10 @@ h1 {
 }
 
 
-.subject-div {
+.subject-div{
     margin-left: 50px;
     white-space: nowrap;
-    max-width: 500px;
+    max-width: 28%;
     height: 20px;
     overflow: hidden;
     font-weight: bold;
