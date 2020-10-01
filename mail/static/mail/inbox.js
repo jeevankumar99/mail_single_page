@@ -123,7 +123,7 @@ function load_mailbox(mailbox) {
       }
       
       // Make the entire div clickable
-      div.addEventListener('click', () => open_mail(mail))
+      div.addEventListener('click', () => open_mail(mail, mailbox))
       div.style.cursor = 'pointer';
 
       div.appendChild(sender_div);
@@ -192,7 +192,7 @@ function load_mailbox(mailbox) {
   }); 
 }
 
-function open_mail(mail) {
+function open_mail(mail, mailbox) {
   console.log(`${mail.subject} has been clicked!`);
   
   // Hide inbox view and show single mail view
@@ -217,10 +217,13 @@ function open_mail(mail) {
     subject_div.innerHTML = `<h2>${response_mail.subject}</h2>`
     info_div.innerHTML = `<h4>From: ${response_mail.sender}</h4><h4>To: ${response_mail.recipients}</h4><h4>${response_mail.timestamp}</h4>`;
     body_div.innerHTML = response_mail.body;
+    body_div.innerHTML = body_div.innerHTML.replace(/\n/g, '<br>\n');
     
     // Adding the archive button 
     let archive_button = document.createElement('button');
-    archive_button.id = 'mail-archive-button'
+    archive_button.id = "archive-button";
+    let action_button_div = document.createElement('div');
+    action_button_div.id = "action-button-div";
     if (response_mail.archived) {
       archive_button.innerHTML = "Unarchive"
     }
@@ -228,19 +231,22 @@ function open_mail(mail) {
       archive_button.innerHTML = "Archive";
     }
     archive_button.addEventListener('click', (e) => toggle_archive_mail(e, response_mail));
+    action_button_div.appendChild(archive_button);
 
-    /* Adding the reply button
-    if (mail.sender === request)
-    let reply_button = document.createElement('button');
-    reply_button.id = 'mail-reply-button';
-    */
 
     // Append all parts of mail to one div
     let view_mail_div = document.querySelector('#view-single-mail');
     view_mail_div.appendChild(subject_div);
     view_mail_div.appendChild(info_div);
     view_mail_div.appendChild(body_div);
-    view_mail_div.appendChild(archive_button);
+    view_mail_div.appendChild(action_button_div);
+
+    if (mailbox !== 'sent') {
+      let reply_button = document.createElement('button');
+      reply_button.innerHTML = "Reply";
+      reply_button.id = "reply-button";
+      action_button_div.appendChild(reply_button);
+    }
 
     // To change read to true after user opens the mail
     toggle_read_mail(response_mail.id);
