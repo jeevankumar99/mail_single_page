@@ -14,10 +14,10 @@
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <div>
-                    <input id="login-register-email" autofocus class="form-control" type="email" name="email" placeholder="Email">
+                    <input id="login-register-email"  autocomplete="off" autofocus class="form-control" type="email" name="email" placeholder="Email">
                 </div>
                 <div>
-                    <input id="login-register-password" class="form-control" type="password" name="password" placeholder="Password">
+                    <input id="login-register-password" autocomplete="off' class="form-control" type="password" name="password" placeholder="Password">
                 </div>
                 <input id="login-register-button" class="btn btn-primary" type="submit" value="Login">
             </form>

@@ -33,7 +33,7 @@ function compose_email(type='compose', reply_mail=null) {
       console.log(reply_mail.subject.slice(0, 3))
       document.querySelector('#compose-subject').value = `Re: ${reply_mail.subject}`;
     }
-    document.querySelector('#compose-body').value = `On ${reply_mail.timestamp}, ${reply_mail.sender} wrote: ${reply_mail.body}`;
+    document.querySelector('#compose-body').value = `On ${reply_mail.timestamp}, ${reply_mail.sender} wrote:\n\n${reply_mail.body}`;
   }
 
   // Clear out composition fields
@@ -230,7 +230,7 @@ function open_mail(mail, mailbox) {
     else {
       archive_button.innerHTML = "Archive";
     }
-    archive_button.addEventListener('click', (e) => toggle_archive_mail(e, response_mail));
+    archive_button.addEventListener('click', () => toggle_archive_mail(response_mail));
     action_button_div.appendChild(archive_button);
 
 
@@ -245,6 +245,9 @@ function open_mail(mail, mailbox) {
       let reply_button = document.createElement('button');
       reply_button.innerHTML = "Reply";
       reply_button.id = "reply-button";
+      reply_button.addEventListener('click', () => {
+        compose_email('reply', mail);
+      })
       action_button_div.appendChild(reply_button);
     }
 

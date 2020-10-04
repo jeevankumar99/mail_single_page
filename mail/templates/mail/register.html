@@ -12,10 +12,10 @@
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
             <div>
-                <input id="login-register-email" type="email" name="email" placeholder="Email Address">
+                <input id="login-register-email"  autocomplete="off" type="email" name="email" placeholder="Email Address">
             </div>
             <div>
-                <input id="login-register-password" type="password" name="password" placeholder="Password">
+                <input id="login-register-password" autocomplete="off"  type="password" name="password" placeholder="Password">
             </div>
             <div>
                 <input id="login-register-password" type="password" name="confirmation" placeholder="Confirm Password">

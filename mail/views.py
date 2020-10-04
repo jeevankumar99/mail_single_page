@@ -18,7 +18,7 @@ def index(request):
         username, domain = user.split('@')
         domain_name = '@' + domain
         return render(request, "mail/inbox.html", {
-            'username': username,
+            'username': username.capitalize(),
             'domain': domain_name,
         })
 

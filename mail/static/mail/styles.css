@@ -194,6 +194,10 @@ h1 {
     color: rgb(156, 90, 4);
 }
 
+.reply_button:focus, .archive_button:focus {
+    outline: none;
+    border: 0px;
+}
 
 
 
