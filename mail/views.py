@@ -35,7 +35,6 @@ def compose(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
 
-    print ("python line 32 working!")
     # Check recipient emails
     data = json.loads(request.body)
     emails = [email.strip() for email in data.get("recipients").split(",")]
@@ -46,7 +45,6 @@ def compose(request):
 
     # Convert email addresses to users
     recipients = []
-    print(emails)
     for email in emails:
         try:
             user = User.objects.get(email=email)
@@ -55,7 +53,6 @@ def compose(request):
             return JsonResponse({
                 "error": f"User with email {email} does not exist."
             }, status=400)
-    print (recipients)
     # Get contents of email
     subject = data.get("subject", "")
     body = data.get("body", "")
@@ -120,7 +117,6 @@ def email(request, email_id):
 
     # Update whether email is read or should be archived
     elif request.method == "PUT":
-        print ("Line 117 working!")
         data = json.loads(request.body)
         if data.get("read") is not None:
             email.read = data["read"]

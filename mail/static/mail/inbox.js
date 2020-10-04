@@ -30,7 +30,6 @@ function compose_email(type='compose', reply_mail=null) {
       document.querySelector('#compose-subject').value = `${reply_mail.subject}`;
     }
     else {
-      console.log(reply_mail.subject.slice(0, 3))
       document.querySelector('#compose-subject').value = `Re: ${reply_mail.subject}`;
     }
     document.querySelector('#compose-body').value = `On ${reply_mail.timestamp}, ${reply_mail.sender} wrote:\n\n${reply_mail.body}`;
@@ -68,18 +67,18 @@ function load_mailbox(mailbox) {
   document.querySelector('#emails-view').textContent = '';
 
   // Change side panel style based on mailbox
-  let normal_gray = 'rgb(71, 71, 71)';
   let highlight_gray = 'rgb(173, 173, 173)';
   let mailboxes = ['inbox', 'sent', 'archive'];
 
+  // Set different style for selected mailbox
   document.querySelector(`#${mailbox}`).style.backgroundColor = highlight_gray;
   document.querySelector(`#${mailbox}`).style.color = 'black';
   document.querySelector(`#side-${mailbox}-div`).style.backgroundColor = highlight_gray;
   document.querySelector(`#${mailbox}-icon`).style.filter = 'brightness(0.10)';
 
+  // Set defined CSS style if not selected
   mailboxes.forEach((mail_box) => {
     if (mailbox !== mail_box) {
-      console.log(mail_box)
       document.querySelector(`#${mail_box}`).style.backgroundColor = null;
       document.querySelector(`#${mail_box}`).style.color = null;
       document.querySelector(`#side-${mail_box}-div`).style.backgroundColor = null;
@@ -107,6 +106,7 @@ function load_mailbox(mailbox) {
       let body_div = document.createElement('div');
       let timestamp_div = document.createElement('div');
       
+      // Add classes to all newly created elements
       sender_div.innerHTML = mail.sender;
       sender_div.classList.add('sender-div');
       subject_div.innerHTML = mail.subject;
@@ -126,6 +126,7 @@ function load_mailbox(mailbox) {
       div.addEventListener('click', () => open_mail(mail, mailbox))
       div.style.cursor = 'pointer';
 
+      // Append all parts of mail to the inner div
       div.appendChild(sender_div);
       div.appendChild(subject_div);
       div.appendChild(body_div);
@@ -187,13 +188,10 @@ function load_mailbox(mailbox) {
         div.appendChild(reply_button);
       }
     })
-    console.log("load_function executed")
-    console.log(mails);
   }); 
 }
 
 function open_mail(mail, mailbox) {
-  console.log(`${mail.subject} has been clicked!`);
   
   // Hide inbox view and show single mail view
   document.querySelector('#emails-view').style.display = 'none';
@@ -204,8 +202,6 @@ function open_mail(mail, mailbox) {
   fetch(`emails/${mail.id}`)
   .then(response => response.json())
   .then(response_mail => {
-    console.log("open_mail executed")
-    console.log(response_mail);
 
     // Adding the parts of the email
     let subject_div = document.createElement('div');
@@ -284,7 +280,6 @@ function toggle_archive_mail(response_mail) {
     })
   })
   .then(() => {
-    console.log('this is archived');
     load_mailbox('inbox');
   });
 }
