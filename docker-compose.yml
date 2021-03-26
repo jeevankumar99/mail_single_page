@@ -1,0 +1,26 @@
+version: '3.7'
+services: 
+        web:
+                build: .
+                command: python3 manage.py runserver 0.0.0.0:8000
+                ports:
+                        - "8000:8000"
+                environment: 
+                        - SQL_DATABASE=mail_database
+                        - SQL_HOST=db
+                        - SQL_PORT=5432
+                        - SQL_USER=jeevan
+                        - SQL_PASSWORD=jeevan2324
+                depends_on: 
+                        - db
+        db:
+                image: postgres:12.0
+                volumes:
+                        - postgres_data:/var/lib/postgresql/data
+                environment: 
+                        - POSTGRES_USER=jeevan
+                        - POSTGRES_PASSWORD=jeevan2342
+                        - POSTGRES_DB=mail_database
+
+volumes: 
+        postgres_data:
